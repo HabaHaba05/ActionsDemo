@@ -1,0 +1,28 @@
+name: Build Calculator
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+    
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Setup dotnet
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+        
+      - name: Restore packages
+      - run: dotnet restore
+      
+      - name: Build project
+      - run: dotnet build
+      
+      - name: Test
+      - run: dotnet test
